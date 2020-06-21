@@ -1,0 +1,60 @@
+﻿@model IEnumerable<AutoEvaluateShared.EvaluatedScoreEntity>
+
+@{
+    ViewBag.Title = "Evaluated Scores";
+    WebGrid webGrid = new WebGrid(source: Model, canSort: false);
+}
+
+<h4 style="color : coral">Evaluation Scores</h4>
+<br />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        .Grid {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+            .Grid th {
+                background-color: #F7F7F7;
+                font-weight: bold;
+            }
+
+            .Grid th, .Grid td {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .Grid, .Grid table td {
+                border: 0px solid #ccc;
+            }
+
+                .Grid th a, .Grid th a:visited {
+                    color: #333;
+                }
+    </style>
+</head>
+<body>
+    @webGrid.GetHtml(
+        htmlAttributes: new { @id = "WebGrid", @class = "Grid" },
+        columns: webGrid.Columns(
+                        webGrid.Column("RollNo", "Roll Number", format: @<text> @Html.ActionLink(linkText: (string)@item.RollNo, actionName: "ShowResult", routeValues: new { rollNumber = item.RollNo })</text>),
+                                webGrid.Column("StudentName", "Student Name"),
+                                webGrid.Column("Class", "Class"),
+                                webGrid.Column("Subject", "Subject"),
+                                webGrid.Column("Question", "Question Number"),
+                                webGrid.Column("EvaluatedScore", "Evaluated Score")
+                             ))
+</body>
+<br />
+<br />
+<p style="color : green">Refresh the page to get the scores of the evaluations whose status is 'Evaluating'.</p>
+<p style="color : green">Click on Roll Number to view marks for each student.</p>
+</html>

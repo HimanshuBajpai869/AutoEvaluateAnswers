@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Show Results";
+}
+
+<h3>Results obtained for the student are as follows :</h3>
+
+@{ 
+    foreach (var score in ViewBag.Scores)
+    {
+        <p>@score</p>
+    }
+}
+
+
